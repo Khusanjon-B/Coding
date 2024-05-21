@@ -1,0 +1,319 @@
+Git is a free and open source version control system.
+
+Directory = Folder on computer
+
+Terminal - interface for text commands
+
+CLI - Command Line Interface
+
+cd - change directory (double clicking folder)
+
+Code Editor - Word Processor for writing code
+
+Repository - Project, or the folder/place where your project is kept
+
+Git hub - A website to host repositories online
+______________________________________________
+
+Git Commands
+
+clone - bring a repository that is hosted somewhere else into a folder on local machine
+
+add - track your files and changes in Git
+
+commit - save your files in Git
+
+push - upload git commits to a remote repository, like github
+
+pull - download changes from remote repo to local machine
+
+ls -la meanins list all files, including hidden folders
+
+______________________________________________
+
+Adding Folders into 
+
+Open folder for project:
+
+Open terminal
+
+git clone PASTE_CLONE_WITH_SSH  -- This downloads the repo
+
+go inside to the repo folder using cd FILE_NAME
+
+After changing a file:
+
+    enter git status - shows all file changes that have not been saved
+
+    to make sure git starts tracking newly made folders:
+
+        git add FILE_NAME
+
+        git add . - makes sure all changes are tracked
+
+    onces they are tracked you need to commit
+
+        git commit -m "MESSAGE FOR CHANGES COMMIT" - This message is required 
+
+        git commit -m "THIS IS TITLE" -m "THIS IS DESCRIPTION BOX AS SEEN ON GITHUB"
+
+    This has still only been saved locally, so you need to:
+
+        git push
+
+SSH Keys (ACTUAL WINDOWS Terminal)
+
+    In order to push files you need to prove to github that you are the user
+
+    So go terminal
+
+    first need to generate ssh key and specify type of encryption and then strength of encryption and then github email
+
+        ssh-keygen -t rsa -b 4096 -C "email@example.com"
+
+        The default file for the SSH key will be in user directory in .ssh and will be called  but you can change it in the prompt after the command above. 
+
+        It will then ask for a password you can make one, or leave it blank and enter through it
+    
+    Searching for the key:
+
+        ls | grep KEY_NAME_THAT_YOU_MADE
+
+        you will have two keys one is public and one is private - you will publish your public one to github
+
+        You will use private key when logging into github on computer
+
+        opening key:
+
+            cat KEY_NAME.pub
+
+        copy the whole key or use following command to copy:
+
+            pbcopy < ~/.ssh   <-- This is path file
+
+    Then add key to github
+
+    Then you have to make sure that your command line knows that you have a new key (SEARCH THIS UP ONLINE) then it will work with git
+
+Git Push:
+
+    git push origin main    <-- Origin is option that stands for location of git repo and main is branch
+
+Starting a Repo Locally
+
+    Create folder
+
+    move into the folder using vs code terminal
+
+    Add file for example readME
+
+    go to terminal:
+
+        git init - initializes git repo
+
+        git status
+
+        git add . or file name
+
+        git status - to check that it is being tracked
+
+        git commit -m "" -m ""
+
+    Pushing
+
+        Create empty repository on github and copy the ssh key
+
+        then on vs code
+
+        git remote add origin SSH
+
+    Then doing git remote -v gives remote repos that are connected to repo
+
+    git push origin main
+
+        If you don't want to write origin main each time:
+
+            git push -u origin main - This upstream, so now you can use git push, and origin main is default
+
+Github Workflow:
+
+    Write code -> Commit Changes -> make pull request
+
+Local Git workflow:
+
+    Write code -> stage changes (git add) -> commit changes (git commit) - push changes (git push) -> make pull request
+
+Pull request if you you have other people also working on same code
+
+Git Branching
+
+    We are default on main branch
+
+    When you create new branch at first all code is same, but if you make changes you will only have changes on the separate branch
+
+    The branches are separate, and they will not see changes to other branches
+
+    Then finally you will merge them
+
+    Either terminal works for the following
+
+    type git branch - this will show the branches in your repo
+
+    star is the one that you are in
+
+    hit letter q to get out of it
+
+    git checkout - to switch between branches
+
+    But you have to specify
+
+        git check BRANCH_NAME
+
+        git checkout -b BRANCH_NAME <- This creates new branch (no spaces)
+
+    now you have switched to new branch
+
+    you can check again with git branch
+
+    Now change your file in the new branch
+
+    save
+
+        git status - to see what changed
+
+        git add FILE_Name or .
+
+        git commit -m "" -m""
+
+        this is now only saved on this branch
+
+    Merging branches:
+
+        git diff BRANCH_NAME = compares the different branch to main
+
+        q to get out
+
+        git merge BRANCH_NAME
+
+        OR:
+
+        git checkout BRANCH_NAME
+
+        git status - no changes to commit
+
+        git push - since you are on new branch it will ask which branch you want to save commit to
+
+        you can copy the default it gives which saves it to the new branch
+
+            --set-... is same as -
+            
+        Pull request pr is a request to have code pulled into another branch
+
+            Right now we have new branch we want to pull into main branch
+
+        Once merged you can delete branch
+
+        On Github:
+
+            you can click compare and pull request button
+
+            shows merging to base
+
+            Title and description is given
+
+            create pull request
+
+            You can also add comments or view others' comments in pull requests
+
+            Then click merge pull requests button
+
+        Locally:
+
+            git pull origin main (if you haven't set upstream)
+
+            git branch
+
+            copy branch name then q
+
+            git branch -d BRANCH_NAME
+
+            can check with git branch
+
+    Merge Conflicts:
+
+        can see changes using git diff
+
+        if file is modified and not created
+
+            git commit -am "" - This adds and commits at the same time
+
+        git checkout main - with overlapping code
+
+        git checkout BRANCH_NAME will not work if you haven't committed your main changes
+
+        once in branch
+
+            git diff main - compare to main
+
+        git merge main
+
+            As changes are made to main make sure to keep updating your branch with small changes
+
+        If get merge conflict:
+
+            VS Code will give visual cues with buttons in code editor, you can also change it
+
+        now git status
+
+        git commit -am ""
+
+        Now you have updated your branch with changes in main branch and you can continue working on branch
+
+Undoing in Git
+
+    If you added a file on accident
+
+        git reset with no argument or git rest FILE_NAME
+
+    undoing commit:
+
+        git reset HEAD~1 - HEAD is pointer to last commit, so putting ~1 will reset you back to one before the commit you just made
+
+        This unstages/untracks/unadds/and uncommits the last changes that you were trying to commit
+
+        git log will give you log of commits
+
+        If you want to go back to a certain commit
+
+            copy commit hash from log 
+
+            scroll down with spacebar and also get out with q
+
+            git reset PASTE_HASH
+
+                This unstages and uncommites changes after the specified commit hash
+        
+        unstaging and completely removing stuff:
+
+            find the commit hash
+
+            git reset --hard COMMIT_HASH
+
+Forking:
+
+    creates complete copy of repos of other people
+
+    now you have complete control over code
+
+sync vs push
+
+push just adds the new code
+
+sync also pulls the changes made remotely
+
+
+
+
+
+
+
