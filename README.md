@@ -2,6 +2,6 @@
 
 ### I have learned:
 
-#### Python
+####   Python
 
-#### Some HTML and CSS
+####   Some HTML and CSS
